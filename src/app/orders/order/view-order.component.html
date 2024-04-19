@@ -1,0 +1,11 @@
+{{msg}}
+<div *ngIf="orderList">
+Order id {{orderID}}
+
+{{orderList | json}}
+<hr>
+{{OrderDetails | json}}
+<hr>
+</div>
+<button (click)="GoPrevious()">Previous</button>
+<button (click)="GoNext()">Next</button>

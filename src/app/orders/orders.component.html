@@ -1,0 +1,45 @@
+{{errormessage}}
+<!-- {{orderListwitherror| json}} -->
+<table class="table table-hover">
+    <thead class="thead-light">
+        <th>Order No</th>
+        <th>Customer</th>
+        <th>Pay Method</th>
+        <th>Grand Total</th>
+        <th>
+            <a class="btn btn-success sm-1" routerLink="/order" title="Add new order">
+                <i class='fa fa-plus'></i>
+            </a>
+        </th>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orderList"   [class.selected]="isSelected(order)" >
+            <td>
+                {{order.OrderNo}}
+            </td>
+            <td>
+                    {{order.Customer}}
+                </td>
+               
+                    <td>
+                            {{order.Paymethod}}
+                        </td>
+                        <td>
+                                {{order.TotalPrice}}
+                            </td>
+                            <td>
+                                <a  routerLink="/order/view/{{order.OrderID}}" title="view details order">
+                                    <i class="fa fa-details"></i>
+                                </a>
+                                &nbsp;&nbsp;&nbsp;
+                                <a  routerLink="/order/edit/{{order.OrderID}}" title="Edit order">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                                &nbsp;&nbsp;&nbsp;
+                                <a href="#"  (click)="deleteOrder(order.OrderID)" title="Delete order">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+        </tr>
+    </tbody>
+</table>

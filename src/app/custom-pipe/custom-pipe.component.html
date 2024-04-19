@@ -1,0 +1,49 @@
+<div>
+        <label>Tax Rate:</label>
+        <select [value]="taxRate || 0" (change)="taxRate=$event.target.value" name="taxRate">
+        <option value="0">None</option>
+        <option value="10">10%</option>
+        <option value="20">20%</option>
+        <option value="50">50%</option>
+        </select>
+        </div>
+        <div>
+                <label>Number of items:</label>
+                <select [value]="itemCount || 1" (change)="itemCount=$event.target.value">
+                <option *ngFor="let item of elist; let i = index" [value]="i + 1">
+                {{i + 1}}
+                </option>
+                </select>
+                </div>
+<table class="table table-bordered">
+     
+    <!-- <tr *ngFor="let e of elist | salaryFilter:550000  -->
+            <tr *ngFor="let e of elist | slice:0:(itemCount||1);
+            let i=index; let odd=odd ;let even=even "  [class.bg-info]="odd" [class.bg-warning]="even" >  
+    <td>
+        {{i+1}}
+    </td>
+        <td style="vertical-align:middle">
+            {{e.name | mypipe:e.gender}}
+        </td>
+        <td>
+                {{e.gender}}
+            </td>
+            <td>
+                    {{e.salary }}
+                </td>
+            <td>
+                    {{e.salary| addTax:(taxRate||0) | currency :"USD" : "symbol"}}
+                </td>
+                
+    </tr>
+</table>
+
+<div class="bg-info p-2 text-white">
+        <div>Date formatted from object: {{ dateObject | date :"shortDate"}}</div>
+        <div>Date formatted from string: {{ dateString | date:"mediumDate" }}</div>
+        <div>Date formatted from number: {{ dateNumber | date :"longDate"}}</div>
+        </div>
+        <div>
+            {{elist|json}}
+        </div>

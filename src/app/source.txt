@@ -1,0 +1,3 @@
+https://www.youtube.com/watch?v=R2dOyHJu4a8
+https://medium.com/@ole.ersoy/adding-the-indigo-pink-theme-to-our-angular-material-project-c6600d5dcc65
+https://www.techiediaries.com/angular-material-dialogs/

@@ -1,0 +1,131 @@
+<form #form='ngForm' *ngIf='service.formData' autocomplete="off" (submit)="onsubmit(form)">
+        <div class="row">
+                <div class="col-md-12">
+                        <div class="form-row">
+                        <div class="form-group col-md-6">
+                                        <input name="OrderID" #OrderID="ngModel" type="hidden" value="0"
+                                        [(ngModel)]="service.formData.OrderID" class="form-control"/>
+                                <label>OrderNo</label>
+                                <div class="input-group">
+                                        <div class="input-group-prepend">
+                                                <div class="input-group-text">#</div>
+                                                <input name="OrderNo" #OrderNo="ngModel"
+                                                        [(ngModel)]="service.formData.OrderNo" class="form-control">
+                                        </div>
+
+                                </div>
+
+                        </div>
+                        <div class="form-group col-md-6">
+                                <label>Customer </label>
+                                <div class="input-group">
+                                        <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                        <i class="fa fa-user-o" aria-hidden="true"></i>
+                                                </div>
+                                                <select name="CusID" #CusID="ngModel" [class.is-invalid]="!isValid && service.formData.CusID===''"
+                                                        [(ngModel)]="service.formData.CusID" class="form-control">
+                                                        <option value="">Select customer</option>
+                                                        <option *ngFor="let customer of custList" value="{{customer.Id}}">
+                                                                {{customer.Name}}
+                                                        </option>
+                                                </select>
+                                              
+                                        </div>
+
+                                </div>
+
+                        </div>
+                </div>
+                <div class="form-row">
+                        <div class="form-group col-md-6">
+                                <label>Pay Method</label>
+
+                                <select name="Paymethod" #Paymethod="ngModel" [(ngModel)]="service.formData.Paymethod"
+                                [class.is-invalid]="!isValid && service.formData.Paymethod===''"
+                                        class="form-control">
+                                        <option value="">Select Payment Method</option>
+                                        <option value="Cash">Cash</option>
+                                        <option value="Card">Card</option>
+                                </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                                <label>Grand Total</label>
+                                <div class="input-group">
+                                        <div class="input-group-prepend">
+                                                <div class="input-group-text">$</div>
+                                                <input name="TotalPrice" #TotalPrice="ngModel" readonly
+                                                [class.is-invalid]="!isValid && service.formData.TotalPrice===0"
+                                                        [(ngModel)]="service.formData.TotalPrice" class="form-control">
+                                        </div>
+
+                                </div>
+
+
+                        </div>
+                </div>
+                        <!-- Order items -->
+                        <div style="widows: 100%">
+                                <table class="table table-borderless">
+                                        <thead class="thead-light">
+                                                <th>Food</th>
+                                                <th>qty</th>
+                                                <th>price</th>
+                                                <th>Total Price </th>
+                                                <th>
+                                                        <a (click)='addoreditItem(null,service.formData.OrderID)' 
+                                                        class="btn btn-sm btn-success text-white">
+                                                                <i class="fa fa-plus">Add</i>
+                                                        </a>
+                                                </th>
+                                        </thead>
+                                        <tbody>
+                                                <tr *ngIf="service.orderItems.length==0">
+                                                        <td colspan="5" class="font-italic text-center"
+                                                        [class.text-danger]="!isValid && service.orderItems.length ==0"
+                                                        >No food item found for selected order</td>
+                                                </tr>
+                                                <tr *ngFor='let item of service.orderItems;let i=index'>
+                                                        <td>
+                                                                {{item.ItemName}}
+                                                        </td>
+                                                        <td>
+                                                                {{item.Price}}
+                                                        </td>
+                                                        <td>
+                                                                {{item.Qty}}
+                                                        </td>
+                                                        <td>
+                                                                {{item.Total}}
+                                                        </td>
+                                                        <td>
+                                                                <a (click)='addoreditItem(i,service.formData.OrderID)' class="btn btn-sm btn-info text-white">
+                                                                        <i class="fa fa-pencil"></i>
+                                                                </a>
+                                                                <a (click)='deleteItem(item.OrderId,i)' class="btn btn-sm btn-danger text-white ml-1">
+                                                                                <i class="fa fa-trash"></i>
+                                                                        </a>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                </table>
+                        </div>
+                        <div class="form-Group">
+
+                                <button type="submit"  class="btn btn-primary" type="submit" >
+                                <i class="fa fa-database"></i> Save
+                                </button>
+                                <a class="btn btn-outline-dark  ml-1 sm-1" routerLink="/orders">
+                                        <i class="fa fa-table"></i>
+                                      View OrderList
+                                    </a>
+
+                                    <a class="btn btn-outline-dark  ml-1 sm-1" (click)="goToList()">
+                                        <i class="fa fa-table"></i>
+                                     Back
+                                    </a>
+                        </div>
+                </div>
+                <!-- <div class="col-md-6"></div> -->
+        </div>
+</form>
